@@ -21,16 +21,33 @@ type ValidatorRole int8
 
 const (
 	// RoleUnknown means that the role of the validator cannot be determined.
+	//
+	// 확인할 수 없는 검증자
 	RoleUnknown ValidatorRole = iota
+
 	// RoleAttester means that the validator should submit an attestation.
+	//
+	// 증명을 제출해야 하는 검증자
 	RoleAttester
+
 	// RoleProposer means that the validator should propose a block.
+	//
+	// 블록을 제안해야 하는 검증자
 	RoleProposer
+
 	// RoleAggregator means that the validator should submit an aggregation and proof.
+	//
+	// 집계 및 증명을 제출해야 하는 검증자
 	RoleAggregator
+
 	// RoleSyncCommittee means that the validator should submit a sync committee message.
+	//
+	// 동기화 위원회(?) 메시지를 제출해야 하는 검증자
 	RoleSyncCommittee
+
 	// RoleSyncCommitteeAggregator means the valiator should aggregate sync committee messages and submit a sync committee contribution.
+	//
+	// 동기화 위원회 미시지를 집계하고 동기화 위원회 기여도를 제출해야 하는 검증자
 	RoleSyncCommitteeAggregator
 )
 

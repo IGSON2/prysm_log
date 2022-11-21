@@ -32,6 +32,9 @@ import (
 // It fetches the latest beacon block head along with the latest canonical beacon state
 // information in order to sign the block and include information about the validator's
 // participation in voting on the block.
+//
+// SubmitAttestation은 지정된 슬롯에서 검증자 클라이언트의 검사자 책임을 완료한다.
+// 블록에 서명하고 검증자의 블록 투표 참여에 대한 정보를 포함하기 위해 최신 표준 비콘 상태 정보와 함께 최신 비콘 블록 헤드를 가져온다.
 func (v *validator) SubmitAttestation(ctx context.Context, slot types.Slot, pubKey [fieldparams.BLSPubkeyLength]byte) {
 	ctx, span := trace.StartSpan(ctx, "validator.SubmitAttestation")
 	defer span.End()
@@ -247,8 +250,9 @@ func (v *validator) saveAttesterIndexToData(data *ethpb.AttestationData, index t
 }
 
 // waitOneThirdOrValidBlock waits until (a) or (b) whichever comes first:
-//   (a) the validator has received a valid block that is the same slot as input slot
-//   (b) one-third of the slot has transpired (SECONDS_PER_SLOT / 3 seconds after the start of slot)
+//
+//	(a) the validator has received a valid block that is the same slot as input slot
+//	(b) one-third of the slot has transpired (SECONDS_PER_SLOT / 3 seconds after the start of slot)
 func (v *validator) waitOneThirdOrValidBlock(ctx context.Context, slot types.Slot) {
 	ctx, span := trace.StartSpan(ctx, "validator.waitOneThirdOrValidBlock")
 	defer span.End()
