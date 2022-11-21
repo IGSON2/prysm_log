@@ -15,6 +15,9 @@ import (
 // Receive indexed attestations from some source event feed,
 // validating their integrity before appending them to an attestation queue
 // for batch processing in a separate routine.
+//
+// 일부 원본 이벤트 피드에서 인덱스된 증명을 수신하여 별도의 루틴에서
+// 일괄 처리를 위해 증명 대기열에 추가하기 전에 무결성을 확인합니다.
 func (s *Service) receiveAttestations(ctx context.Context, indexedAttsChan chan *ethpb.IndexedAttestation) {
 	sub := s.serviceCfg.IndexedAttestationsFeed.Subscribe(indexedAttsChan)
 	defer sub.Unsubscribe()
@@ -76,6 +79,9 @@ func (s *Service) receiveBlocks(ctx context.Context, beaconBlockHeadersChan chan
 // these attestations from a queue, then group them all by validator chunk index.
 // This grouping will allow us to perform detection on batches of attestations
 // per validator chunk index which can be done concurrently.
+//
+// 슬롯 티커가 실행될 때마다 대기 중인 증명을 처리합니다. 큐에서 이러한 증명을 검색한 다음 검증자 청크 인덱스별로 모두 그룹화합니다.
+// 이 그룹화를 통해 동시에 수행할 수 있는 검증자 청크 인덱스당 증명 배치에 대한 탐지를 수행할 수 있습니다.
 func (s *Service) processQueuedAttestations(ctx context.Context, slotTicker <-chan types.Slot) {
 	for {
 		select {
@@ -117,6 +123,7 @@ func (s *Service) processQueuedAttestations(ctx context.Context, slotTicker <-ch
 
 			// Process attester slashings by verifying their signatures, submitting
 			// to the beacon node's operations pool, and logging them.
+			// 서명을 확인하고 비콘 노드의 작업 풀에 제출한 다음 기록하여 증명인 슬래싱을 처리합니다.
 			if err := s.processAttesterSlashings(ctx, slashings); err != nil {
 				log.WithError(err).Error("Could not process attester slashings")
 				continue
@@ -131,6 +138,9 @@ func (s *Service) processQueuedAttestations(ctx context.Context, slotTicker <-ch
 
 // Process queued blocks every time an epoch ticker fires. We retrieve
 // these blocks from a queue, then perform double proposal detection.
+//
+// 에포크 티커가 발생할 때마다 대기 중인 블록을 처리합니다.
+// 큐에서 이러한 블록을 검색한 다음 이중 제안 탐지를 수행합니다.
 func (s *Service) processQueuedBlocks(ctx context.Context, slotTicker <-chan types.Slot) {
 	for {
 		select {
@@ -171,6 +181,8 @@ func (s *Service) processQueuedBlocks(ctx context.Context, slotTicker <-chan typ
 }
 
 // Prunes slasher data on each slot tick to prevent unnecessary build-up of disk space usage.
+//
+// 디스크 공간의 불필요한 증가를 방지하기 위해 각 슬롯 눈금에 슬래셔 데이터를 제거합니다.
 func (s *Service) pruneSlasherData(ctx context.Context, slotTicker <-chan types.Slot) {
 	for {
 		select {
@@ -190,6 +202,11 @@ func (s *Service) pruneSlasherData(ctx context.Context, slotTicker <-chan types.
 // All data before that window is unnecessary for slasher, so can be periodically deleted.
 // Say HISTORY_LENGTH is 4 and we have data for epochs 0, 1, 2, 3. Once we hit epoch 4, the sliding window
 // we care about is 1, 2, 3, 4, so we can delete data for epoch 0.
+//
+// [current_epoch - History_LENGTH, current_epoch]의 슬라이딩 창을 사용하여 슬래셔 데이터를 자릅니다.
+// 슬래셔에는 해당 창 이전의 모든 데이터가 불필요하므로 주기적으로 삭제할 수 있습니다.
+// HISTORY_LENGTH가 4이고 에포크 0, 1, 2, 3에 대한 데이터가 있습니다.
+// 에포크 4에 도달하면 우리가 관심을 갖는 슬라이딩 윈도우는 1, 2, 3, 4이므로 에포크 0에 대한 데이터를 삭제할 수 있습니다.
 func (s *Service) pruneSlasherDataWithinSlidingWindow(ctx context.Context, currentEpoch types.Epoch) error {
 	var maxPruningEpoch types.Epoch
 	if currentEpoch >= s.params.historyLength {

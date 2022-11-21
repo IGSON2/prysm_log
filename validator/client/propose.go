@@ -36,6 +36,10 @@ const signExitErr = "could not sign voluntary exit proposal"
 // chain node to construct the new block. The new block is then processed with
 // the state root computation, and finally signed by the validator before being
 // sent back to the beacon node for broadcasting.
+//
+// ProposalBlock은 주어진 슬롯에 대한 새로운 블록을 제안한다.
+// 이 방법은 이전 비콘 블록, 보류 중인 예금 및 ETH1 데이터를 비콘 체인 노드에서 수집하여 새 블록을 구성한다.
+// 그런 다음 새 블록은 상태 루트 계산으로 처리되고 브로드캐스트를 위해 비콘 노드로 다시 전송되기 전에 검증자에 의해 최종적으로 서명된다.
 func (v *validator) ProposeBlock(ctx context.Context, slot types.Slot, pubKey [fieldparams.BLSPubkeyLength]byte) {
 	if slot == 0 {
 		log.Debug("Assigned to genesis slot, skipping proposal")

@@ -97,6 +97,7 @@ func (g *Gateway) Start() {
 
 	for _, h := range g.cfg.pbHandlers {
 		for _, r := range h.Registrations {
+			// 등록된 Handler 실행
 			if err := r(ctx, h.Mux, g.conn); err != nil {
 				log.WithError(err).Error("Failed to register handler")
 				g.startFailure = err

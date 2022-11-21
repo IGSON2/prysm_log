@@ -38,6 +38,7 @@ option php_namespace = "Ethereum\\Eth\\Service";
 // blocks, and the validator spec.
 //
 // This service is defined in the upstream Ethereum consensus APIs repository (beacon-apis/apis/).
+// config API endpoints들은 비콘체인의 상태나 정보(spec, current fork, blocks, validator 등)를 쿼리하기 위해 사용할 수 있다.
 service BeaconChain {
   // Beacon state API related endpoints.
 

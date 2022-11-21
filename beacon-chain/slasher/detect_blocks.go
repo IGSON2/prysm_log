@@ -11,6 +11,8 @@ import (
 )
 
 // detectProposerSlashings takes in signed block header wrappers and returns a list of proposer slashings detected.
+//
+// detectProposerSlashings는 서명된 블록 헤더 래퍼를 가져오고 탐지된 제안자 슬래시 목록을 반환합니다.
 func (s *Service) detectProposerSlashings(
 	ctx context.Context,
 	proposedBlocks []*slashertypes.SignedBlockHeaderWrapper,
@@ -51,6 +53,8 @@ func (s *Service) detectProposerSlashings(
 
 // Check for double proposals in our database given a list of incoming block proposals.
 // For the proposals that were not slashable, we save them to the database.
+//
+// 수신 블록 제안 목록이 제공된 데이터베이스에서 이중 제안을 확인합니다. 슬래시 할 수 없는 제안의 경우 데이터베이스에 저장합니다.
 func (s *Service) saveSafeProposals(
 	ctx context.Context,
 	proposedBlocks []*slashertypes.SignedBlockHeaderWrapper,

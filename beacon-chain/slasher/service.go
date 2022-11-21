@@ -86,6 +86,8 @@ func New(ctx context.Context, srvCfg *ServiceConfig) (*Service, error) {
 
 // Start listening for received indexed attestations and blocks
 // and perform slashing detection on them.
+//
+// 수신된 인덱스 증명 및 블록을 수신하고 슬래시 탐지를 수행한다.
 func (s *Service) Start() {
 	go s.run() // Start functions must be non-blocking.
 }

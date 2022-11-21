@@ -16,6 +16,8 @@ const (
 
 // IndexedAttestationWrapper contains an indexed attestation with its
 // signing root to reduce duplicated computation.
+//
+// IndexedAttestationWrapper에는 중복 계산을 줄이기 위해 서명 루트와 함께 인덱싱된 증명이 포함되어 있습니다.
 type IndexedAttestationWrapper struct {
 	IndexedAttestation *ethpb.IndexedAttestation
 	SigningRoot        [32]byte
@@ -40,6 +42,8 @@ type DoubleBlockProposal struct {
 
 // SignedBlockHeaderWrapper contains an signed beacon block header with its
 // signing root to reduce duplicated computation.
+//
+// SignedBlockHeaderWrapper는 중복 계산을 줄이기 위해 서명 루트가 있는 서명된 비콘 블록 헤더를 포함합니다.
 type SignedBlockHeaderWrapper struct {
 	SignedBeaconBlockHeader *ethpb.SignedBeaconBlockHeader
 	SigningRoot             [32]byte

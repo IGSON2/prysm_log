@@ -11,6 +11,8 @@ import (
 
 // Verifies attester slashings, logs them, and submits them to the slashing operations pool
 // in the beacon node if they pass validation.
+//
+// 증명인 슬래싱을 검증하고 로그에 기록한 다음 검증을 통과하는 경우 비콘 노드의 슬래싱 작업 풀에 제출합니다.
 func (s *Service) processAttesterSlashings(ctx context.Context, slashings []*ethpb.AttesterSlashing) error {
 	var beaconState state.BeaconState
 	var err error
@@ -47,6 +49,8 @@ func (s *Service) processAttesterSlashings(ctx context.Context, slashings []*eth
 
 // Verifies proposer slashings, logs them, and submits them to the slashing operations pool
 // in the beacon node if they pass validation.
+//
+// 제안자 슬래시를 확인하고 로그에 기록한 다음 검증에 통과하는 경우 비콘 노드의 슬래시 작업 풀에 제출합니다.
 func (s *Service) processProposerSlashings(ctx context.Context, slashings []*ethpb.ProposerSlashing) error {
 	var beaconState state.BeaconState
 	var err error

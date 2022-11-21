@@ -85,6 +85,10 @@ func (s *Service) filterAttestations(
 // the target epoch, which is a precondition for performing slashing detection.
 // This function also checks the attestation source epoch is within the history size
 // we keep track of for slashing detection.
+//
+// 증명 데이터 무결성을 검증하고 소스값, 에포크가 nil이 아님을 보증한다,
+// 그리고 증명의 소스 에포크는 반드시 슬래싱 감지를 수행하기 위한 전제조건인 타겟 에포크보다 작아야 한다.
+// 이 함수는 또한 슬래시 탐지를 위해 추적하는 기록 크기 내에 증명 소스 에포크가 있는지 확인합니다.
 func validateAttestationIntegrity(att *ethpb.IndexedAttestation) bool {
 	// If an attestation is malformed, we drop it.
 	if att == nil ||
@@ -108,6 +112,8 @@ func validateAttestationIntegrity(att *ethpb.IndexedAttestation) bool {
 }
 
 // Validates the signed beacon block header integrity, ensuring we have no nil values.
+//
+// 서명된 비콘 블록 헤더 무결성을 확인하여 0 값이 없는지 확인합니다.
 func validateBlockHeaderIntegrity(header *ethpb.SignedBeaconBlockHeader) bool {
 	// If a signed block header is malformed, we drop it.
 	if header == nil ||

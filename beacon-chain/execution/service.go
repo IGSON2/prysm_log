@@ -132,6 +132,10 @@ type config struct {
 // block hash, block number, and access to logs within the
 // Validator Registration Contract on the eth1 chain to kick off the beacon
 // chain's validator registration process.
+//
+// Service는 eth Client를 사용하여 Web3 Endpoint를 통해 canonical eth1 chain에 대한 중요한 정보를 가져옵니다.
+// Beacon chain은 eth1 chain의 현재 블록 해시, 블록 번호 및 eth1 chain의 검증자 등록 계약 내
+// 로그에 대한 액세스를 동기화하여 Beacon chain의 검증자 등록 프로세스를 시작해야 합니다.
 type Service struct {
 	connectedETH1           bool
 	isRunning               bool
@@ -385,6 +389,9 @@ func (s *Service) initDepositCaches(ctx context.Context, ctrs []*ethpb.DepositCo
 
 // processBlockHeader adds a newly observed eth1 block to the block cache and
 // updates the latest blockHeight, blockHash, and blockTime properties of the service.
+//
+// processBlockHeader는 새로 관찰된 eth1 블록을 블록 캐시에 추가하고 최신 블록을 업데이트합니다.
+// 서비스의 높이, blockHash 및 blockTime 속성입니다.
 func (s *Service) processBlockHeader(header *gethTypes.Header) {
 	defer safelyHandlePanic()
 	blockNumberGauge.Set(float64(header.Number.Int64()))

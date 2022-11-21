@@ -37,6 +37,9 @@ const eth1dataTimeout = 2 * time.Second
 // GetBeaconBlock is called by a proposer during its assigned slot to request a block to sign
 // by passing in the slot and the signed randao reveal of the slot. Returns phase0 beacon blocks
 // before the Altair fork epoch and Altair blocks post-fork epoch.
+//
+// GetBeaconBlock은 슬롯을 통과하여 서명된 랜다오 슬롯을 공개함으로써 서명할 블록을 요청하기 위해 할당된 슬롯 동안 제안자에 의해 호출된다.
+// Altair 포크 에포크 전 Phase 0 비콘 블록을 반환하고 Altair 블록 포스트 포크 에포크 전 Phase 0 비콘 블록을 반환합니다.
 func (vs *Server) GetBeaconBlock(ctx context.Context, req *ethpb.BlockRequest) (*ethpb.GenericBeaconBlock, error) {
 	ctx, span := trace.StartSpan(ctx, "ProposerServer.GetBeaconBlock")
 	defer span.End()

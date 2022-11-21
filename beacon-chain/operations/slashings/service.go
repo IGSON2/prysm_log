@@ -77,6 +77,9 @@ func (p *Pool) PendingAttesterSlashings(ctx context.Context, state state.ReadOnl
 // PendingProposerSlashings returns proposer slashings that are able to be included into a block.
 // This method will return the amount of pending proposer slashings for a block transition unless the `noLimit` parameter
 // is set to true to indicate the request is for noLimit pending items.
+//
+// PendingProposerSlashings는 블록에 포함할 수 있는 제안자 슬래시를 반환합니다.
+// 이 메서드는 요청이 noLimit 보류 항목에 대한 것임을 나타내기 위해 'noLimit' 매개 변수를 true로 설정하지 않은 경우 블록 전환에 대한 보류 중인 제안자 슬래시의 양을 반환합니다.
 func (p *Pool) PendingProposerSlashings(ctx context.Context, state state.ReadOnlyBeaconState, noLimit bool) []*ethpb.ProposerSlashing {
 	p.lock.Lock()
 	defer p.lock.Unlock()
@@ -115,6 +118,8 @@ func (p *Pool) PendingProposerSlashings(ctx context.Context, state state.ReadOnl
 
 // InsertAttesterSlashing into the pool. This method is a no-op if the attester slashing already exists in the pool,
 // has been included into a block recently, or the validator is already exited.
+//
+// 풀에 AttesterSlashing을 삽입합니다. 이 메서드는 어테스터 슬래시가 풀에 이미 있거나 최근에 블록에 포함되었거나 검증자가 이미 종료된 경우 no-op입니다.
 func (p *Pool) InsertAttesterSlashing(
 	ctx context.Context,
 	state state.ReadOnlyBeaconState,
@@ -180,6 +185,9 @@ func (p *Pool) InsertAttesterSlashing(
 
 // InsertProposerSlashing into the pool. This method is a no-op if the pending slashing already exists,
 // has been included recently, the validator is already exited, or the validator was already slashed.
+//
+// 제안자 슬래싱을 풀에 삽입합니다. 보류 중인 슬래시가 이미 있거나 최근에 포함되었거나, 검증자가 이미 종료되었거나,
+// 검증자가 이미 슬래싱 된 경우 이 메서드는 no-op입니다.
 func (p *Pool) InsertProposerSlashing(
 	ctx context.Context,
 	state state.ReadOnlyBeaconState,

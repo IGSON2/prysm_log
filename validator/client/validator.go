@@ -690,6 +690,9 @@ func (v *validator) subscribeToSubnets(ctx context.Context, res *ethpb.DutiesRes
 // RolesAt slot returns the validator roles at the given slot. Returns nil if the
 // validator is known to not have a roles at the slot. Returns UNKNOWN if the
 // validator assignments are unknown. Otherwise returns a valid ValidatorRole map.
+//
+// RolesAt slot은 지정된 슬롯의 검증자 역할을 반환합니다. 검증자의 역할이 슬롯에 없는 것으로 알려진 경우 0을 반환합니다.
+// 검증자 할당을 알 수 없는 경우 UNKNOWN을 반환합니다. 그렇지 않으면 유효한 검증자 역할 맵이 반환됩니다.
 func (v *validator) RolesAt(ctx context.Context, slot types.Slot) (map[[fieldparams.BLSPubkeyLength]byte][]iface.ValidatorRole, error) {
 	rolesAt := make(map[[fieldparams.BLSPubkeyLength]byte][]iface.ValidatorRole)
 	for validator, duty := range v.duties.Duties {

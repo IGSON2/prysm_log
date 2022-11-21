@@ -276,6 +276,8 @@ func (vs *Server) GetSyncCommitteeDuties(ctx context.Context, req *ethpbv2.SyncC
 //
 // To use mev-boost and relayer network. It's recommended to use the following endpoint:
 // https://github.com/ethereum/beacon-APIs/blob/master/apis/validator/blinded_block.yaml
+//
+// ProductBlockV2는 유효한 서명되지 않은 비콘 블록을 생성하도록 비콘 노드에 요청하며, 이는 제안자가 서명하고 제출할 수 있습니다.
 func (vs *Server) ProduceBlockV2(ctx context.Context, req *ethpbv1.ProduceBlockRequest) (*ethpbv2.ProduceBlockResponseV2, error) {
 	ctx, span := trace.StartSpan(ctx, "validator.ProduceBlockV2")
 	defer span.End()

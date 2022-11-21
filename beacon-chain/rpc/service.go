@@ -322,7 +322,7 @@ func (s *Service) Start() {
 	ethpbservice.RegisterBeaconNodeServer(s.grpcServer, nodeServerV1)
 	ethpbv1alpha1.RegisterHealthServer(s.grpcServer, nodeServer)
 	ethpbv1alpha1.RegisterBeaconChainServer(s.grpcServer, beaconChainServer)
-	ethpbservice.RegisterBeaconChainServer(s.grpcServer, beaconChainServerV1)
+	ethpbservice.RegisterBeaconChainServer(s.grpcServer, beaconChainServerV1) //beacon.Server
 	ethpbservice.RegisterEventsServer(s.grpcServer, &events.Server{
 		Ctx:               s.ctx,
 		StateNotifier:     s.cfg.StateNotifier,
@@ -356,7 +356,7 @@ func (s *Service) Start() {
 		ethpbv1alpha1.RegisterDebugServer(s.grpcServer, debugServer)
 		ethpbservice.RegisterBeaconDebugServer(s.grpcServer, debugServerV1)
 	}
-	ethpbv1alpha1.RegisterBeaconNodeValidatorServer(s.grpcServer, validatorServer)
+	ethpbv1alpha1.RegisterBeaconNodeValidatorServer(s.grpcServer, validatorServer) // validator server
 	ethpbservice.RegisterBeaconValidatorServer(s.grpcServer, validatorServerV1)
 	// Register reflection service on gRPC server.
 	reflection.Register(s.grpcServer)

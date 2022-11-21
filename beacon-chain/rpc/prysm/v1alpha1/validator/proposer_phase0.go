@@ -74,6 +74,8 @@ func (vs *Server) getPhase0BeaconBlock(ctx context.Context, req *ethpb.BlockRequ
 }
 
 // Build data required for creating a new beacon block, so this method can be shared across forks.
+//
+// 새 비콘 블록을 생성하기 위해 필요한 데이터를 빌드한다. 이 메서드는 이후의 여러 포크에서 기본이 된다.
 func (vs *Server) buildPhase0BlockData(ctx context.Context, req *ethpb.BlockRequest) (*blockData, error) {
 	ctx, span := trace.StartSpan(ctx, "ProposerServer.buildPhase0BlockData")
 	defer span.End()
