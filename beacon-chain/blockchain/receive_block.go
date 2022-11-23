@@ -32,9 +32,9 @@ type SlashingReceiver interface {
 
 // ReceiveBlock is a function that defines the operations (minus pubsub)
 // that are performed on a received block. The operations consist of:
-//   1. Validate block, apply state transition and update checkpoints
-//   2. Apply fork choice to the processed block
-//   3. Save latest head info
+//  1. Validate block, apply state transition and update checkpoints
+//  2. Apply fork choice to the processed block
+//  3. Save latest head info
 func (s *Service) ReceiveBlock(ctx context.Context, block interfaces.SignedBeaconBlock, blockRoot [32]byte) error {
 	ctx, span := trace.StartSpan(ctx, "blockChain.ReceiveBlock")
 	defer span.End()
@@ -85,6 +85,9 @@ func (s *Service) ReceiveBlock(ctx context.Context, block interfaces.SignedBeaco
 // ReceiveBlockBatch processes the whole block batch at once, assuming the block batch is linear ,transitioning
 // the state, performing batch verification of all collected signatures and then performing the appropriate
 // actions for a block post-transition.
+//
+// ReceiveBlockBatch는 블록 배치가 선형이라고 가정하고, 상태를 전환하고, 수집된 모든 서명에 대한 배치 확인을 수행한 다음,
+// 블록 후 전환에 대한 적절한 작업을 수행하여 전체 블록 배치를 한 번에 처리합니다.
 func (s *Service) ReceiveBlockBatch(ctx context.Context, blocks []interfaces.SignedBeaconBlock, blkRoots [][32]byte) error {
 	ctx, span := trace.StartSpan(ctx, "blockChain.ReceiveBlockBatch")
 	defer span.End()

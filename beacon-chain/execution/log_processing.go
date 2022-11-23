@@ -225,6 +225,8 @@ func (s *Service) ProcessDepositLog(ctx context.Context, depositLog gethtypes.Lo
 
 // ProcessChainStart processes the log which had been received from
 // the eth1 chain by trying to determine when to start the beacon chain.
+//
+// ProcessChainStart는 비콘 체인을 시작할 시기를 결정하기 위해 eth1 체인으로부터 수신된 로그를 처리합니다.
 func (s *Service) ProcessChainStart(genesisTime uint64, eth1BlockHash [32]byte, blockNumber *big.Int) {
 	s.chainStartData.Chainstarted = true
 	s.chainStartData.GenesisBlock = blockNumber.Uint64()
@@ -444,6 +446,8 @@ func (s *Service) processBlockInBatch(ctx context.Context, currentBlockNum uint6
 
 // requestBatchedHeadersAndLogs requests and processes all the headers and
 // logs from the period last polled to now.
+//
+// requestBatchedHeadersAndLogs는 마지막으로 폴링한 기간부터 현재까지 모든 헤더와 로그를 요청하고 처리합니다.
 func (s *Service) requestBatchedHeadersAndLogs(ctx context.Context) error {
 	// We request for the nth block behind the current head, in order to have
 	// stabilized logs when we retrieve it from the eth1 chain.

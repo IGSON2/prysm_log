@@ -16,6 +16,9 @@ var log = logrus.WithField("prefix", "slotutil")
 // logging the remaining minutes until the genesis chainstart event
 // along with important genesis state metadata such as number
 // of genesis validators.
+//
+// CountdownToGenesis는 지정된 시간에 티커를 시작하여 제네시스 체인 시작 이벤트까지
+// 남은 시간(분)을 제네시스 검증자 수와 같은 중요한 제네시스 상태 메타데이터와 함께 기록합니다.
 func CountdownToGenesis(ctx context.Context, genesisTime time.Time, genesisValidatorCount uint64, genesisStateRoot [32]byte) {
 	ticker := time.NewTicker(params.BeaconConfig().GenesisCountdownInterval)
 	defer func() {

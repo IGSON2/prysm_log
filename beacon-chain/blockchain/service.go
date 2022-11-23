@@ -350,6 +350,9 @@ func (s *Service) startFromExecutionChain() error {
 
 // onExecutionChainStart initializes a series of deposits from the ChainStart deposits in the eth1
 // deposit contract, initializes the beacon chain's state, and kicks off the beacon chain.
+//
+// onExecutionChainStart는 eth1 deposit contract의 ChainStart deposits에서 일련의 deposits을 초기화하고,
+// 비콘 체인의 상태를 초기화하며, 비콘 체인을 시작한다.
 func (s *Service) onExecutionChainStart(ctx context.Context, genesisTime time.Time) {
 	preGenesisState := s.cfg.ChainStartFetcher.PreGenesisState()
 	initializedState, err := s.initializeBeaconChain(ctx, genesisTime, preGenesisState, s.cfg.ChainStartFetcher.ChainStartEth1Data())

@@ -183,6 +183,9 @@ func (s *Service) waitForMinimumPeers() {
 
 // waitForStateInitialization makes sure that beacon node is ready to be accessed: it is either
 // already properly configured or system waits up until state initialized event is triggered.
+//
+// waitForStateInitialization를 실행하면 비콘 노드에 액세스할 준비가 됩니다.
+// 비콘 노드가 이미 올바르게 구성되어 있거나 상태 초기화 이벤트가 트리거될 때까지 시스템이 대기합니다.
 func (s *Service) waitForStateInitialization() {
 	// Wait for state to be initialized.
 	stateChannel := make(chan *feed.Event, 1)

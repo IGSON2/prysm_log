@@ -382,6 +382,9 @@ func (s *Service) pingPeers() {
 // Waits for the beacon state to be initialized, important
 // for initializing the p2p service as p2p needs to be aware
 // of genesis information for peering.
+//
+// 비콘 상태가 초기화될 때까지 기다립니다.
+// p2p가 피어링을 위한 생성 정보를 알아야 하므로 p2p 서비스를 초기화하는 데 중요합니다.
 func (s *Service) awaitStateInitialized() {
 	s.initializationLock.Lock()
 	defer s.initializationLock.Unlock()

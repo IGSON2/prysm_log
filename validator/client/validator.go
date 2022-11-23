@@ -323,6 +323,9 @@ func (v *validator) WaitForSync(ctx context.Context) error {
 // ReceiveBlocks starts a gRPC client stream listener to obtain
 // blocks from the beacon node. Upon receiving a block, the service
 // broadcasts it to a feed for other usages to subscribe to.
+//
+// ReceiveBlocks는 신호 노드에서 블록을 가져오기 위해 gRPC 클라이언트 스트림 리스너를 시작합니다.
+// 블록을 수신하면 서비스는 다른 사용자가 받아 볼 수 있도록 피드에 브로드캐스트합니다.
 func (v *validator) ReceiveBlocks(ctx context.Context, connectionErrorChannel chan<- error) {
 	stream, err := v.validatorClient.StreamBlocksAltair(ctx, &ethpb.StreamBlocksRequest{VerifiedOnly: true})
 	if err != nil {
@@ -789,8 +792,9 @@ func (v *validator) isAggregator(ctx context.Context, committee []types.Validato
 //
 // Spec code:
 // def is_sync_committee_aggregator(signature: BLSSignature) -> bool:
-//    modulo = max(1, SYNC_COMMITTEE_SIZE // SYNC_COMMITTEE_SUBNET_COUNT // TARGET_AGGREGATORS_PER_SYNC_SUBCOMMITTEE)
-//    return bytes_to_uint64(hash(signature)[0:8]) % modulo == 0
+//
+//	modulo = max(1, SYNC_COMMITTEE_SIZE // SYNC_COMMITTEE_SUBNET_COUNT // TARGET_AGGREGATORS_PER_SYNC_SUBCOMMITTEE)
+//	return bytes_to_uint64(hash(signature)[0:8]) % modulo == 0
 func (v *validator) isSyncCommitteeAggregator(ctx context.Context, slot types.Slot, pubKey [fieldparams.BLSPubkeyLength]byte) (bool, error) {
 	res, err := v.validatorClient.GetSyncSubcommitteeIndex(ctx, &ethpb.SyncSubcommitteeIndexRequest{
 		PublicKey: pubKey[:],

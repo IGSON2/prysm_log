@@ -59,6 +59,8 @@ func (s *Service) roundRobinSync(genesis time.Time) error {
 }
 
 // syncToFinalizedEpoch sync from head to best known finalized epoch.
+//
+// syncToFinalizedEpoch는 헤드부터 가장 잘 알려진 최종 에포크까지 동기화 한다.
 func (s *Service) syncToFinalizedEpoch(ctx context.Context, genesis time.Time) error {
 	highestFinalizedSlot, err := slots.EpochStart(s.highestFinalizedEpoch() + 1)
 	if err != nil {
@@ -97,6 +99,8 @@ func (s *Service) syncToFinalizedEpoch(ctx context.Context, genesis time.Time) e
 
 // syncToNonFinalizedEpoch sync from head to best known non-finalized epoch supported by majority
 // of peers (no less than MinimumSyncPeers*2 peers).
+//
+// syncToNonFinalizedEpoch는 헤드에서부터 대부분의 피어(MinimumSyncPeers*2 피어 이상)에서 지원하는 가장 잘 알려진 비 최종 에포크로 동기화한다.
 func (s *Service) syncToNonFinalizedEpoch(ctx context.Context, genesis time.Time) error {
 	queue := newBlocksQueue(ctx, &blocksQueueConfig{
 		p2p:                 s.cfg.P2P,

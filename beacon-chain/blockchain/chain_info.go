@@ -118,6 +118,8 @@ func (s *Service) BestJustifiedCheckpt() *ethpb.Checkpoint {
 }
 
 // HeadSlot returns the slot of the head of the chain.
+//
+// HeadSlot은 체인 헤드의 슬롯을 반환합니다.
 func (s *Service) HeadSlot() types.Slot {
 	s.headLock.RLock()
 	defer s.headLock.RUnlock()

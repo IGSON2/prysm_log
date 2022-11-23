@@ -446,6 +446,7 @@ func (is *infostream) calculateActivationTimeForPendingValidators(res []*ethpb.V
 }
 
 // handleBlockProcessed handles the situation where a block has been processed by the Prysm server.
+// handleBlockProcessed는 블록이 Prysm 서버에 의해 처리된 상황을 처리합니다.
 func (is *infostream) handleBlockProcessed() {
 	headState, err := is.headFetcher.HeadState(is.ctx)
 	if err != nil {

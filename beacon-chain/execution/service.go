@@ -390,8 +390,8 @@ func (s *Service) initDepositCaches(ctx context.Context, ctrs []*ethpb.DepositCo
 // processBlockHeader adds a newly observed eth1 block to the block cache and
 // updates the latest blockHeight, blockHash, and blockTime properties of the service.
 //
-// processBlockHeader는 새로 관찰된 eth1 블록을 블록 캐시에 추가하고 최신 블록을 업데이트합니다.
-// 서비스의 높이, blockHash 및 blockTime 속성입니다.
+// processBlockHeader는 새로 관찰된 eth1 블록을 블록 캐시에 추가하고 최신 블록의 높이,
+// blockHash 및 서비스의 blockTime 속성을 업데이트합니다
 func (s *Service) processBlockHeader(header *gethTypes.Header) {
 	defer safelyHandlePanic()
 	blockNumberGauge.Set(float64(header.Number.Int64()))
@@ -577,6 +577,8 @@ func (s *Service) initPOWService() {
 }
 
 // run subscribes to all the services for the eth1 chain.
+//
+// eth1 체인의 모든 서비스를 구독합니다.
 func (s *Service) run(done <-chan struct{}) {
 	s.runError = nil
 

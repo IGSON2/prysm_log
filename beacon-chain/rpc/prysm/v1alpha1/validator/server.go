@@ -154,6 +154,9 @@ func (vs *Server) DomainData(_ context.Context, request *ethpb.DomainRequest) (*
 // has started its runtime and validators begin their responsibilities. If it has not, it then
 // subscribes to an event stream triggered by the powchain service whenever the ChainStart log does
 // occur in the Deposit Contract on ETH 1.0.
+//
+// WaitForChainStart는 비콘 체인이 런타임을 시작했는지 확인하고 검증자가 책임을 시작하기 위해 예금 계약의 로그를 쿼리합니다.
+// 그렇지 않은 경우, ETH 1.0의 예금 계약에서 ChainStart 로그가 발생할 때마다 powchain 서비스에 의해 트리거된 이벤트 스트림에 가입합니다.
 func (vs *Server) WaitForChainStart(_ *emptypb.Empty, stream ethpb.BeaconNodeValidator_WaitForChainStartServer) error {
 	head, err := vs.HeadFetcher.HeadState(stream.Context())
 	if err != nil {
